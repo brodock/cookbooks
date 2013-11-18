@@ -6,6 +6,7 @@ cookbook 'dpkg_packages', git: 'https://github.com/brodock/chef-dpkg_packages.gi
 cookbook 'locale', git: 'https://github.com/Agiley/chef-locale.git'
 cookbook 'git'
 cookbook 'htop'
+cookbook 'mysql'
 cookbook 'omnibus_updater'
 cookbook 'ubuntu', git: 'https://github.com/brodock/chef-ubuntu.git'
 cookbook 'vim'
