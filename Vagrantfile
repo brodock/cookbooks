@@ -1,5 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+Vagrant.require_plugin 'vagrant-berkshelf'
+Vagrant.require_plugin 'vagrant-omnibus'
+Vagrant.require_plugin 'vagrant-vbguest'
 
 Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -52,8 +55,7 @@ Vagrant.configure("2") do |config|
   # View the documentation for the provider you're using for more
   # information on available options.
 
-  config.ssh.max_tries = 40
-  config.ssh.timeout   = 120
+  config.omnibus.chef_version = :latest
 
   # The path to the Berksfile to use with Vagrant Berkshelf
   config.berkshelf.berksfile_path = "./Berksfile"
@@ -71,16 +73,18 @@ Vagrant.configure("2") do |config|
   # config.berkshelf.except = []
 
   config.vm.provision :chef_solo do |chef|
-    chef.json = {
-      :mysql => {
-        :server_root_password => 'rootpass',
-        :server_debian_password => 'debpass',
-        :server_repl_password => 'replpass'
-      }
-    }
+      chef.roles_path = "roles"
 
-    chef.run_list = [
-        "recipe[brodock-cookbook::default]"
-    ]
+      chef.json = {
+          :mysql => {
+              :server_root_password => 'rootpass',
+              :server_debian_password => 'debpass',
+              :server_repl_password => 'replpass'
+          },
+      }
+
+      chef.run_list = [
+          "role[ubuntu]"
+      ]
   end
 end
