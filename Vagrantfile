@@ -86,7 +86,8 @@ Vagrant.configure("2") do |config|
       chef.run_list = [
           "role[ubuntu]",
           "recipe[ubuntu::brasil]",
-          "role[mysql-server-minimal]"
+          "role[mysql-server-minimal]",
+          "role[ruby]"
       ]
   end
 end

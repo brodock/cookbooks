@@ -1,7 +1,9 @@
 name "ubuntu"
 description "Ubuntu Server essential applications and configurations"
-run_list 'recipe[apt]', 'recipe[build-essential]',  'recipe[dpkg_packages]',
-         'recipe[git]', 'recipe[htop]', 'recipe[locale]', 'recipe[omnibus_updater]', 'recipe[vim]'
+run_list 'recipe[ubuntu]', 'recipe[ubuntu::digitalocean]', 'recipe[locale]', 'recipe[omnibus_updater]', 'recipe[apt]', 
+         'recipe[git]', 'recipe[build-essential]', 'recipe[dpkg_packages]', 'recipe[htop]', 'recipe[locale]',  'recipe[vim]',
+         'recipe[chef-client::service]'
+
 default_attributes(
     "locale" => {
         :lang => 'pt_BR.utf8',
