@@ -87,7 +87,8 @@ Vagrant.configure("2") do |config|
           "role[ubuntu]",
           "recipe[ubuntu::brasil]",
           "role[mysql-server-minimal]",
-          "role[ruby]"
+          "role[ruby]",
+          "role[passenger]"
       ]
   end
 end
