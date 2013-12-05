@@ -1,7 +1,7 @@
 name "ubuntu"
 description "Ubuntu Server essential applications and configurations"
 run_list 'recipe[ubuntu]', 'recipe[ubuntu::digitalocean]', 'recipe[locale]', 'recipe[omnibus_updater]', 'recipe[apt]', 
-         'recipe[git]', 'recipe[build-essential]', 'recipe[dpkg_packages]', 'recipe[htop]', 'recipe[locale]',  'recipe[vim]',
+         'recipe[git::ppa]', 'recipe[build-essential]', 'recipe[dpkg_packages]', 'recipe[htop]', 'recipe[locale]',  'recipe[vim]',
          'recipe[chef-client::service]'
 
 default_attributes(
