@@ -3,7 +3,7 @@ site :opscode
 cookbook 'apt'
 cookbook 'build-essential'
 cookbook 'chef-client'
-cookbook 'chruby', git: 'https://github.com/fnichol/chef-chruby.git'
+cookbook 'chruby', git: 'https://github.com/brodock/chef-chruby.git'
 cookbook 'dpkg_packages', git: 'https://github.com/brodock/chef-dpkg_packages.git'
 cookbook 'locale', git: 'https://github.com/Agiley/chef-locale.git'
 cookbook 'git', git: 'https://github.com/brodock/git.git'
