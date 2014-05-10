@@ -1,8 +1,5 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-Vagrant.require_plugin 'vagrant-berkshelf'
-Vagrant.require_plugin 'vagrant-omnibus'
-Vagrant.require_plugin 'vagrant-vbguest'
 
 Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -12,11 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "brodock-cookbook-berkshelf"
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "ubuntu-12.04-cloud"
-
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-i386-vagrant-disk1.box"
+  config.vm.box = "chef/ubuntu-12.04"
 
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
@@ -73,22 +66,27 @@ Vagrant.configure("2") do |config|
   # config.berkshelf.except = []
 
   config.vm.provision :chef_solo do |chef|
-      chef.roles_path = "roles"
+    chef.roles_path = "roles"
 
-      chef.json = {
-          :mysql => {
-              :server_root_password => 'rootpass',
-              :server_debian_password => 'debpass',
-              :server_repl_password => 'replpass'
-          },
+    chef.json = {
+      :mysql => {
+        :server_root_password => 'rootpass',
+        :server_debian_password => 'debpass',
+        :server_repl_password => 'replpass'
+      },
+      :redis => {
+        :maxmemory => '128mb'
       }
+    }
 
-      chef.run_list = [
-          "role[ubuntu]",
-          "recipe[ubuntu::brasil]",
-          "role[mysql-server-minimal]",
-          "role[ruby]",
-          "role[passenger]"
-      ]
+    chef.run_list = [
+      "role[ubuntu]",
+      "recipe[ubuntu::brasil]",
+      "recipe[redis::server]",
+      #          "recipe[php-fpm]",
+      #          "role[mysql-server-minimal]",
+      #          "role[ruby]",
+      #          "role[passenger]"
+    ]
   end
 end
